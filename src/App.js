@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import products from './data.js';
 import ProductList from './ProductList.js';
+import ShoppingCart from './ShoppingCart'
 import './App.css';
 
 // console.table(products);
@@ -43,7 +44,8 @@ export default class App extends Component {
 		// value: ''
 		name: '',
 		price: 0,
-		description: 'Describe this item'
+		description: 'Describe this item',
+    cartItems: []
 	};
 
 	// * under our state we are creating our handleChange function
@@ -100,6 +102,7 @@ export default class App extends Component {
 	};
 
 	addToCart = (item) => {
+    // * whatever item is, we are going to add it to our cartItems state
 		this.setState({
 			cartItems: [ item, ...this.state.cartItems ]
 		});
@@ -149,7 +152,8 @@ export default class App extends Component {
 						<input
 							type="text"
 							value={this.state.description}
-							onChange={this.handleChange}
+							onClick={() => this.setState({description: ''})}
+              onChange={this.handleChange}
 							id="description"
 						/>
 						<br />
@@ -204,7 +208,13 @@ export default class App extends Component {
 					<div className="cart">
 						<h3 className="headline">Shopping Cart</h3>
 						<ul>
-              
+              {
+                this.state.cartItems.map((product, index) => {
+                  return (
+                    <ShoppingCart />
+                  )
+                })
+              }
             </ul>
 					</div>
 				</div>
