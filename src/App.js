@@ -103,6 +103,7 @@ export default class App extends Component {
 
 	addToCart = (item) => {
     // * whatever item is, we are going to add it to our cartItems state
+    console.log("hey we got here because you clicked on an item inside our ProductList component and this is the item we sent back to App.js from ProductList", item)
 		this.setState({
 			cartItems: [ item, ...this.state.cartItems ]
 		});
@@ -196,7 +197,7 @@ export default class App extends Component {
 									// ! WARNING - Each child in a list should have a unique ID
 									// * the most typical way to assign a unique ID to a list item is by using the "i" iterator
 									// * we need to add an extra parameter inside our arrow function inside our map function
-									<ProductList key={index} product={product} />
+									<ProductList key={index} product={product} handleAdd={this.addToCart} />
 								);
 							})}
 
@@ -209,9 +210,9 @@ export default class App extends Component {
 						<h3 className="headline">Shopping Cart</h3>
 						<ul>
               {
-                this.state.cartItems.map((product, index) => {
+                this.state.cartItems.map((item, index) => {
                   return (
-                    <ShoppingCart />
+                    <ShoppingCart key={index} item={item}/>
                   )
                 })
               }
